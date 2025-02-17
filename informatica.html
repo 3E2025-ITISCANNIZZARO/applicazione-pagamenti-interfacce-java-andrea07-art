@@ -1,0 +1,35 @@
+import java.io.File;  // Importa la classe File che permette di gestire file e directory
+import java.io.FileNotFoundException;  // Importa la classe FileNotFoundException per gestire l'eccezione di file non trovato
+import java.util.Scanner;  // Importa la classe Scanner per leggere dati 
+
+public class InputFile {  // Definisce la classe principale chiamata InputFile
+
+    public static void main(String[] args) {  // Metodo principale del programma 
+
+       
+        String pathFileName = "./folder/inputFile.txt";  // Definisce il percorso relativo del file di input 
+
+        File inputFile = new File(pathFileName);  // Crea un oggetto File che rappresenta il file inputFile.txt nel percorso specificato
+
+        // Creo un oggetto Scanner con fonte di dati il file inputFile.txt
+        
+        Scanner scannerDaFile = null;  // Dichiarazione della variabile scannerDaFile che sarà usata per leggere il file
+
+        try {  // Inizio del blocco try per gestire l'eccezione di file non trovato
+            scannerDaFile = new Scanner(inputFile);  // Crea un oggetto Scanner per leggere il contenuto del file 'inputFile.txt'
+
+            System.out.println("----------------- • STAMPA DEL FILE DI TESTO: " + inputFile.getName() + " ----------------------");  // Stampa il titolo con il nome del file
+
+            // Ciclo while che continua finché ci sono linee da leggere nel file
+            while (scannerDaFile.hasNextLine()) {  // Verifica se ci sono altre righe nel file
+                System.out.println(scannerDaFile.nextLine());  // Legge e stampa la riga corrente del file
+            }
+        } catch (FileNotFoundException e) {  // Gestisce l'eccezione FileNotFoundException, che si verifica se il file non è trovato
+            e.printStackTrace();  // Stampa lo stack trace dell'eccezione per diagnosticare il problema
+        } finally {  // Blocco finally che viene eseguito indipendentemente da quanto accaduto nei blocchi precedenti
+            if (scannerDaFile != null) {  // Verifica se lo scanner è stato correttamente inizializzato
+                scannerDaFile.close();  // Chiude lo scanner per liberare le risorse
+            }
+        }
+    }
+}
